@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>tip calculator</title>
+</head>
+<style type="text/css">
+	body {
+  font-family: Roboto;
+  background-color: lightblue;
+  /* fallback for old browsers */
+    /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient;
+  /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+#container {
+  height: 525px;
+  width: 360px;
+  margin: 100px auto;
+  background: blue;
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.1);
+  border-radius: 20px;
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+}
+
+h1 {
+  background: black;
+  color: white;
+  margin: 0;
+  padding: 10px 100px;
+  text-transform: uppercase;
+  font-size: 18px;
+  font-weight: normal;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+}
+
+p {
+  padding-left: 20px;
+}
+
+form input[type="text"] {
+  width=90px;
+}
+
+input {
+  padding-left: 20px;
+}
+
+#billamt {
+  font-size: 14px;
+  /*color: #2980b9;*/
+  color: black;
+  background-color: #f7f7f7;
+  width: 60%;
+  padding: 5px 5px 8px 8px;
+}
+
+#billamt:focus {
+  background: #fff;
+  border: 3px solid #2980b9;
+  outline: none;
+}
+
+#peopleamt {
+  width: 60%;
+  padding: 5px 5px 8px 8px;
+  margin-left: 20px;
+  color: #red;
+  background-color: #f7f7f7;
+  font-size: 14px;
+}
+
+.Rs {
+  display: inline;
+}
+
+#serviceQual {
+  padding: 13px 13px 20px 20px;
+  margin-left: 20px;
+  font-size: 25px;
+}
+
+button {
+  text-transform: uppercase;
+  font-weight: bold;
+  display: block;
+  margin: 30px auto;
+  background: black;
+  border-radius: 5px;
+  width: 200px;
+  height: 50px;
+  font-size: 17px;
+  color: white;
+}
+
+button:hover {
+  background: green;
+  border-bottom-color: #111;
+}
+
+button:active {
+  position: relative;
+  top: 1px;
+}
+
+#totalTip {
+  font-size: 30px;
+  margin-top: 5px;
+  text-align: center;
+}
+
+#totalTip:before {
+  content: "Tip amount";
+  font-size: 20px;
+  font-weight: bold;
+  display: block;
+  text-transform: uppercase;
+}
+
+#totalTip sup {
+  font-size: 20px;
+  top: -18px;
+}
+
+#totalTip small {
+  font-size: 20px;
+  font-weight: bold;
+  display: block;
+}
+</style>
+<body>
+	<div id="container">
+		<h1>TIP CALCULATOR</h1>
+		<div id="calculator">
+
+
+	<form>
+		<p>how much was your bill?
+				<p>Rs. <input type="text" id="billamt" placeholder="Bill amount">
+					<p> how was your service?
+						<p><select id="servicequal">
+							<option disabled selected value="0">-- choose an option --</option>
+							<option value="0.3">30% - outstanding</option>
+							<option value="0.2">20% - Good</option>
+							<option value="0.15">15% - it was okay!</option>
+							<option value="0.1">10% - Bad</option>
+							<option value="0.05">5% - terrible</option>
+						</select>
+						</p>
+
+					</p></p>
+			</p>
+		
+	</form>
+	<p>How many people are sharing the bill?
+							<p><input type="text" id="peopleamt" placeholder="number of people">people</p></p>
+
+							<button type="button" id="calculate">CALCULATE!</button>
+							<div id="totalTip">
+    <sup>Rs.</sup><span id="tip">0.00</span>
+    <small id="each">each</small>
+    <script type="text/javascript">
+    	//Calculate Tip
+function calculateTip() {
+  var billamt = document.getElementById("billamt").value;
+  var servicequal = document.getElementById("servicequal").value;
+  var peopleamt = document.getElementById("peopleamt").value;
+
+  //validate input
+  if (billamt === "" || servicequal == 0) {
+    alert("Please enter values");
+    return;
+  }
+  //Check to see if this input is empty or less than or equal to 1
+  if (peopleamt=== "" || peopleamt <= 1) {
+    peopleamt = 1;
+    document.getElementById("each").style.display = "none";
+  } else {
+    document.getElementById("each").style.display = "block";
+  }
+
+  //Calculate tip
+  var total = (billamt * servicequal) / peopleamt;
+  //round to two decimal places
+  total = Math.round(total * 100) / 100;
+  //next line allows us to always have two digits after decimal point
+  total = total.toFixed(2);
+  //Display the tip
+  document.getElementById("totalTip").style.display = "block";
+  document.getElementById("tip").innerHTML = total;
+
+}
+
+//Hide the tip amount on load
+document.getElementById("totalTip").style.display = "none";
+document.getElementById("each").style.display = "none";
+
+//click to call function
+document.getElementById("calculate").onclick = function() {
+  calculateTip();
+
+};
+    		
+
+    	
+    </script>
+  </div>
+  
+</div>
+</div>
+</body>
+</html>
